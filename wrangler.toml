@@ -1,0 +1,14 @@
+name = "gilba"
+type = "javascript"
+account_id = "c99779f598d17f254bc96f9e7e2f7e88"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[build]
+command = "npm install && npm run build"
+[build.upload]
+format = "service-worker"
+
+[miniflare]
+upstream = "https://cancer6.workers.dev/"

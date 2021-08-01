@@ -1,0 +1,6 @@
+node_modules
+dist
+
+# main file
+main.js
+!./**/main.js
