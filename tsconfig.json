@@ -7,7 +7,12 @@
     "lib": ["esnext", "webworker"],
     "types": [
       "@cloudflare/workers-types",
-    ]
+      "node"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "jsencrypt": ["node_modules/jsencrypt"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules"]
