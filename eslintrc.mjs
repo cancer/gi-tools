@@ -18,7 +18,8 @@ export default {
   globals: {
     ACCOUNT_A: "readonly",
     ACCOUNT_B: "readonly",
-    SLACK_BOT_USER_TOKEN: "readonly"
+    SLACK_BOT_USER_TOKEN: "readonly",
+    KV_REMINDER: "readonly"
   },
   rules: {
     "no-else-return": "error",

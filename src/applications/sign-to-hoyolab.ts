@@ -17,7 +17,7 @@ export const signToHoyolab: SignToHoyolab = async ({ scheduledTime }) => {
   try {
     await sign();
   } catch (e) {
-    await notify({ text: `${e.message}: ${uuid}` });
+    await notify({ text: `${e.message}: ${uuid}` }).catch(console.error);
     return;
   }
 
@@ -29,5 +29,5 @@ export const signToHoyolab: SignToHoyolab = async ({ scheduledTime }) => {
     // Slackに undefined日 で通知されれば気づく
   }
 
-  await notify({ text: `累計ログイン: ${days}日: ${uuid}` });
+  await notify({ text: `累計ログイン: ${days}日: ${uuid}` }).catch(console.error);
 };

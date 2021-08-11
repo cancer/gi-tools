@@ -10,11 +10,11 @@ export function CronDispatcher(): Dispatcher {
   const handlers = new Map<string, Handler>();
 
   return {
-    add(trigger: string, handler: Handler): void {
+    add(trigger, handler) {
       handlers.set(trigger, handler);
     },
 
-    dispatch(ev: CronEvent): Promise<void> {
+    dispatch(ev) {
       const handler = handlers.get(ev.cron);
       if (!handler) return Promise.resolve();
       return handler(ev);

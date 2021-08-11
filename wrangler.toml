@@ -5,6 +5,10 @@ workers_dev = true
 route = ""
 zone_id = ""
 
+kv_namespaces = [
+    { binding = "KV_REMINDER", id = "207ccea9d50c4dc1837ddb29f54324f4" }
+]
+
 [build]
 command = "npm install && npm run build"
 [build.upload]
