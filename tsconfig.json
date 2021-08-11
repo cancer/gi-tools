@@ -12,7 +12,8 @@
     "baseUrl": "./",
     "paths": {
       "jsencrypt": ["node_modules/jsencrypt"]
-    }
+    },
+    "moduleResolution": "Node"
   },
   "include": ["src"],
   "exclude": ["node_modules"]

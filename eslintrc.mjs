@@ -13,8 +13,13 @@ export default {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
   ],
+  globals: {
+    ACCOUNT_A: "readonly",
+    ACCOUNT_B: "readonly",
+    SLACK_BOT_USER_TOKEN: "readonly"
+  },
   rules: {
     "no-else-return": "error",
     "no-lonely-if": "error",
@@ -27,5 +32,6 @@ export default {
       "TSInterfaceDeclaration",
     ],
     "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
   },
 };

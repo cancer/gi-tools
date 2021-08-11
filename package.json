@@ -10,7 +10,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@cloudflare/workers-types": "2.2.2",
     "@tsconfig/recommended": "1.0.1",
@@ -26,6 +25,8 @@
     "typescript": "4.3.5"
   },
   "dependencies": {
-    "jsencrypt": "github:travist/jsencrypt"
-  }
+    "jsencrypt": "github:travist/jsencrypt",
+    "worktop": "0.7.1"
+  },
+  "private": true
 }
