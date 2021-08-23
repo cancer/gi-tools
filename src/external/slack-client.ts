@@ -1,18 +1,27 @@
 type Client = {
-  notify(params: NotifyParams): Promise<void>;
+  notify: Notify;
+  notifyWithBlocks: NotifyWithBlocks;
 };
 type ClientFactory = () => Client;
-export const slack: ClientFactory = () => ({ notify });
+export const slack: ClientFactory = () => ({ notify, notifyWithBlocks });
 
 type NotifyParams = {
   text: string;
 };
 type Notify = (params: NotifyParams) => Promise<void>;
-const notify: Notify = async ({ text }) => {
+const notify: Notify = ({ text }) => {
+  const blocks = [{ type: "section", text: { type: "mrkdwn", text } }];
+  return notifyWithBlocks(blocks);
+};
+
+type Block = { [key: string]: string | Block };
+type Blocks = Record<string, string | Block | Blocks>[];
+type NotifyWithBlocks = (blocks: Blocks) => Promise<void>;
+const notifyWithBlocks: NotifyWithBlocks = async (blocks) => {
   const body = {
     channel: "C02APA64T3N",
     unfurl_links: false,
-    blocks: [{ type: "section", text: { type: "mrkdwn", text } }],
+    blocks,
   };
 
   const res = await fetch("https://slack.com/api/chat.postMessage", {
