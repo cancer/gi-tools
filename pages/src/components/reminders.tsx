@@ -52,6 +52,9 @@ export const Reminders: FunctionalComponent<Props> = () => {
           ev.preventDefault();
           await fetch("https://gilba.cancer6.workers.dev/set-reminder", {
             method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
             body: JSON.stringify({
               uuid,
               time: new Date(dateTime).getTime(),
