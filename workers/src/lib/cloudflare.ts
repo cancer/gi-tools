@@ -1,13 +1,11 @@
-import { CronEvent } from "worktop";
-
-type Handler = (ev: CronEvent) => Promise<void>;
+import { CronEvent, CronHandler } from "worktop";
 
 type Dispatcher = {
-  add(trigger: string, handler: Handler): void;
-  dispatch(ev: CronEvent): Promise<void>;
+  add(trigger: string, handler: CronHandler): void;
+  dispatch(ev: CronEvent): void;
 };
 export function CronDispatcher(): Dispatcher {
-  const handlers = new Map<string, Handler>();
+  const handlers = new Map<string, CronHandler>();
 
   return {
     add(trigger, handler) {
@@ -22,7 +20,7 @@ export function CronDispatcher(): Dispatcher {
   };
 }
 
-type Schedule = (fn: (ev: CronEvent) => Promise<void>) => void;
-export const schedule: Schedule = (fn: (ev: CronEvent) => Promise<void>) => {
+type Schedule = (fn: (ev: CronEvent) => void) => void;
+export const schedule: Schedule = (fn) => {
   addEventListener("scheduled", (ev: CronEvent) => ev.waitUntil(fn(ev)));
 };
