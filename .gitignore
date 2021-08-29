@@ -3,5 +3,5 @@ dist
 .env
 
 # main file
-main.js
+workers/main.js
 !./**/main.js

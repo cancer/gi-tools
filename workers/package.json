@@ -1,12 +1,12 @@
 {
-  "name": "gilba",
+  "name": "@gilba/workers",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "esbuild --bundle --minify --platform=neutral ./src/main.ts > main.js",
-    "dev": "miniflare --watch",
-    "lint": "prettier --write && eslint src/**/*.ts --fix"
+    "build": "../node_modules/.bin/esbuild --bundle --minify --platform=neutral workers/src/main.ts > workers/main.js",
+    "dev": "../node_modules/.bin/miniflare --watch",
+    "lint": "../node_modules/.bin/prettier --write && eslint workers/src/**/*.ts --fix"
   },
   "keywords": [],
   "author": "",
