@@ -3,6 +3,7 @@ import { preflight } from "worktop/cors";
 import { remind } from "./applications/remind";
 import { signToHoyolab } from "./applications/sign-to-hoyolab";
 import { postReminder } from "./handlers/reminder";
+import { postSetReminder } from "./handlers/set-reminder";
 import { postSlackInteractive } from "./handlers/slack-interactive";
 import { CronDispatcher, schedule } from "./lib/cloudflare";
 
@@ -16,6 +17,9 @@ router.prepare = preflight({
 });
 
 router.add("POST", "/reminder", postReminder);
+router.add("POST", "/set-reminder", postSetReminder);
+
+// Slackのボタンクリックなんかで飛んでくるイベント
 router.add("POST", "/slack-interactive", postSlackInteractive);
 
 // scheduled events

@@ -4,9 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "../node_modules/.bin/esbuild --bundle --minify --platform=neutral workers/src/main.ts > workers/main.js",
-    "dev": "../node_modules/.bin/miniflare --watch",
-    "lint": "../node_modules/.bin/prettier --write && eslint workers/src/**/*.ts --fix"
+    "build": "esbuild --bundle --minify --platform=neutral src/main.ts > main.js",
+    "dev": "miniflare --watch",
+    "lint": "prettier --write && eslint src/**/*.ts --fix"
   },
   "keywords": [],
   "author": "",

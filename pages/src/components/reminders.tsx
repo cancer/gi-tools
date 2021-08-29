@@ -54,7 +54,7 @@ export const Reminders: FunctionalComponent<Props> = () => {
             method: "POST",
             body: JSON.stringify({
               uuid,
-              dateTime: new Date(dateTime).getTime(),
+              time: new Date(dateTime).getTime(),
             }),
           });
         }}

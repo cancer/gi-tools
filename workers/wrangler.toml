@@ -13,6 +13,3 @@ kv_namespaces = [
 command = "npm install && npm run build"
 [build.upload]
 format = "service-worker"
-
-[miniflare]
-upstream = "https://cancer6.workers.dev/"
