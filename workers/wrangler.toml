@@ -6,7 +6,7 @@ route = ""
 zone_id = ""
 
 kv_namespaces = [
-    { binding = "KV_REMINDER", id = "207ccea9d50c4dc1837ddb29f54324f4" }
+    { binding = "SCHEDULE", id = "329cebd1ff774458af5f4cbbab474aea" }
 ]
 
 [build]

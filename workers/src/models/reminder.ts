@@ -1,7 +1,6 @@
-import { paginate, remove, write } from "worktop/kv";
 import type { KV } from "worktop/kv";
 
-export declare const KV_REMINDER: KV.Namespace;
+export declare const SCHEDULE: KV.Namespace;
 
 export type Reminder = {
   uuid: string;
@@ -11,7 +10,7 @@ export type Reminder = {
 };
 
 const toPrefix = (time: Reminder["time"]): string => `time:${time}::`;
-const toKey = ({ uuid, time, message }: Reminder) =>
+const toKey = ({ uuid, time, message }: Omit<Reminder, "createdAt">) =>
   `${toPrefix(time)}user:${uuid}::message:${message}`;
 const parseKey = (
   key: string,
@@ -33,14 +32,23 @@ export const save: Save = async (reminder) => {
   // リマインドしたのに残しとく意味はないので消す
   // 1000ms経ってればさすがに実行されてるはず
   const expiration = reminder.time + 1000;
-  await write<Reminder>(KV_REMINDER, toKey(reminder), reminder, { expiration });
+  await SCHEDULE.put(toKey(reminder), JSON.stringify(reminder));
+  // await write<Reminder>(SCHEDULE, toKey(reminder), reminder, { expiration });
 };
 
-type GetReminder = (
-  time: number
-) => Promise<Pick<Reminder, "uuid" | "message">[]>;
+type GetReminder = (time: number) => Promise<Omit<Reminder, "createdAt">[]>;
 export const getReminder: GetReminder = async (time) => {
   const prefix = toPrefix(time);
-  const keys = await paginate(KV_REMINDER, { prefix });
-  return keys.map((key) => parseKey(key, prefix));
+  const keyList = await SCHEDULE.list({ prefix });
+  return keyList.keys.map((key) => ({ ...parseKey(key.name, prefix), time }));
+  //const keys = await paginate(SCHEDULE, { prefix });
+  //return keys.map((key) => parseKey(key, prefix));
+};
+
+export const remove = async ({
+  uuid,
+  time,
+  message,
+}: Omit<Reminder, "createdAt">) => {
+  await SCHEDULE.delete(toKey({ uuid, time, message }));
 };

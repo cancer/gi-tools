@@ -1,6 +1,6 @@
 import type { CronHandler } from "worktop";
 import { slack } from "../external/slack-client";
-import { getReminder } from "../models/reminder";
+import { getReminder, remove } from "../models/reminder";
 
 export const remind: CronHandler = async ({ scheduledTime }) => {
   const { notifyWithBlocks } = slack();
@@ -8,7 +8,10 @@ export const remind: CronHandler = async ({ scheduledTime }) => {
   const time = Math.floor(scheduledTime / 60 / 1000) * 60 * 1000;
   const reminders = await getReminder(time);
 
-  reminders.forEach(({ uuid, message }) => {
+  // リマインドするものがない
+  if (reminders.length === 0) return;
+
+  reminders.forEach(({ uuid, time, message }) => {
     notifyWithBlocks([
       {
         type: "section",
@@ -27,5 +30,6 @@ export const remind: CronHandler = async ({ scheduledTime }) => {
         },
       },
     ]);
+    remove({ uuid, time, message });
   });
 };
